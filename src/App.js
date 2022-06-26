@@ -69,9 +69,7 @@ function App() {
             alt="weather icon"
           />
           <h5 className="weatherCity">{data?.name}</h5>
-          <h6 className="weatherTemp">
-            {(data?.main?.temp - 273.15).toFixed(2)}°C
-          </h6>
+          <h6 className="weatherTemp">{data?.main?.temp - 273.15}°C</h6>
           <h6 className="weatherSpeed">Wind Speed: {data?.wind?.speed}m/s</h6>
           <h6 className="weatherClouds">Clouds: {data?.clouds?.all}%</h6>
         </div>
