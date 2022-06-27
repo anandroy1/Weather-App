@@ -46,22 +46,17 @@ function App() {
             src="https://i.pinimg.com/564x/77/0b/80/770b805d5c99c7931366c2e84e88f251.jpg"
             alt="weather icon"
           />
-          {!inputCity ? (
-            <h2 className="noDataFound">No City Found</h2>
-          ) : (
-            <div>
-              <h5 className="weatherCity">{inputCity?.name}</h5>
-              <h6 className="weatherTemp">
-                {(inputCity?.main?.temp - 273.15).toFixed(2)}°C
-              </h6>
-              <h6 className="weatherSpeed">
-                Wind Speed: {inputCity?.wind?.speed}m/s
-              </h6>
-              <h6 className="weatherClouds">
-                Clouds: {inputCity?.clouds?.all}%
-              </h6>
-            </div>
-          )}
+
+          <div>
+            <h5 className="weatherCity">{inputCity?.name}</h5>
+            <h6 className="weatherTemp">
+              {(inputCity?.main?.temp - 273.15).toFixed(2)}°C
+            </h6>
+            <h6 className="weatherSpeed">
+              Wind Speed: {inputCity?.wind?.speed}m/s
+            </h6>
+            <h6 className="weatherClouds">Clouds: {inputCity?.clouds?.all}%</h6>
+          </div>
         </div>
       </div>
     </div>
