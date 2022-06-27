@@ -1,45 +1,28 @@
-import axios from "axios";
+// import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
   const [inputCity, setInputCity] = useState("");
-  const [data, setData] = useState({});
+  const [search, setSearch] = useState("patna");
   const apiKey = "31e3badd3e9337ebd8ed9ea384c6f44a";
 
-  // api call
-  const getWeatherDetails = (cityName) => {
-    if (!cityName) return;
-    const apiURL =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      cityName +
-      "&appid=" +
-      apiKey;
-
-    console.log("cityName", cityName);
-    axios
-      .get(apiURL)
-      .then((res) => {
-        console.log("response", res.data);
-        setData(res.data); // Saving Data
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  };
-  const handleChangeInput = (e) => {
-    setInputCity(e.target.value);
-    console.log("handleChangeInput", e.target.value);
-  };
-  // search button function
-  const handleSearch = () => {
-    getWeatherDetails(inputCity);
-  };
-
   useEffect(() => {
-    getWeatherDetails("patna");
-  }, []);
+    const fetchApi = async () => {
+      const apiURL =
+        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        search +
+        "&appid=" +
+        apiKey;
+      const response = await fetch(apiURL);
+      console.log("response", response);
+      const resJson = await response.json();
+      console.log("resJson", resJson);
+      setInputCity(resJson);
+    };
+    fetchApi();
+  }, [search]);
 
   return (
     <div className="col-md-12">
@@ -49,18 +32,13 @@ function App() {
           <input
             type="text"
             className="form-control"
-            value={inputCity}
-            onChange={handleChangeInput}
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
           />
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
         </div>
       </div>
+
       <div className="col-md-12 text-centre mt-5">
         <div className="shadow rounded weatherResultBox">
           <img
@@ -68,12 +46,22 @@ function App() {
             src="https://i.pinimg.com/564x/77/0b/80/770b805d5c99c7931366c2e84e88f251.jpg"
             alt="weather icon"
           />
-          <h5 className="weatherCity">{data?.name}</h5>
-          <h6 className="weatherTemp">
-            {(data?.main?.temp - 273.15).toFixed(2)}°C
-          </h6>
-          <h6 className="weatherSpeed">Wind Speed: {data?.wind?.speed}m/s</h6>
-          <h6 className="weatherClouds">Clouds: {data?.clouds?.all}%</h6>
+          {!inputCity ? (
+            <h2 className="noDataFound">No City Found</h2>
+          ) : (
+            <div>
+              <h5 className="weatherCity">{inputCity.name}</h5>
+              <h6 className="weatherTemp">
+                {(inputCity.main?.temp - 273.15).toFixed(2)}°C
+              </h6>
+              <h6 className="weatherSpeed">
+                Wind Speed: {inputCity.wind?.speed}m/s
+              </h6>
+              <h6 className="weatherClouds">
+                Clouds: {inputCity.clouds?.all}%
+              </h6>
+            </div>
+          )}
         </div>
       </div>
     </div>

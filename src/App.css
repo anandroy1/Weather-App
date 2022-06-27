@@ -50,10 +50,20 @@
   justify-content: center;
 }
 
+.noDataFound {
+  margin-top: 2rem;
+  color: black;
+  font-weight: 750;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 800px) {
   .weatherBg,
   .weatherResultBox {
     width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
-    position: relative;
+    /* position: relative; */
   }
 }
