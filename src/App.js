@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     const fetchApi = async () => {
       const apiURL =
-        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        "https://api.openweathermap.org/data/2.5/weather?q=" +
         search +
         "&appid=" +
         apiKey;
@@ -50,15 +50,15 @@ function App() {
             <h2 className="noDataFound">No City Found</h2>
           ) : (
             <div>
-              <h5 className="weatherCity">{inputCity.name}</h5>
+              <h5 className="weatherCity">{inputCity?.name}</h5>
               <h6 className="weatherTemp">
-                {(inputCity.main?.temp - 273.15).toFixed(2)}°C
+                {(inputCity?.main?.temp - 273.15).toFixed(2)}°C
               </h6>
               <h6 className="weatherSpeed">
-                Wind Speed: {inputCity.wind?.speed}m/s
+                Wind Speed: {inputCity?.wind?.speed}m/s
               </h6>
               <h6 className="weatherClouds">
-                Clouds: {inputCity.clouds?.all}%
+                Clouds: {inputCity?.clouds?.all}%
               </h6>
             </div>
           )}
